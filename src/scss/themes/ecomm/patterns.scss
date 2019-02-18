@@ -1,0 +1,21 @@
+@import '../../../patterns/table/themes/ecomm/styles';
+
+.rsResource-card {
+  float: left;
+  padding: 10px;
+  width: 33.33333%;
+}
+
+.rsResource-card-inner {
+  background-color: $white;
+  border: 1px solid $gray-lighter;
+  box-shadow: 0 6px 21px -1px rgba(0, 0, 0, .08);
+  height: 100%;
+  padding: 20px;
+}
+
+.rsPage-loader {
+  display: block;
+  margin: 150px auto;
+  width: 10%;
+}
