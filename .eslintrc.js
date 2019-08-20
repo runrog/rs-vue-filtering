@@ -25,7 +25,8 @@ module.exports = {
   },
   // global variables
   globals: {
-    '$': false
+    '$': false,
+    'Drupal': false,
   },
   // add your custom rules here
   rules: {
@@ -40,11 +41,15 @@ module.exports = {
       props: true,
       ignorePropertyModificationsFor: [
         's', // state alias
+        'p', // mutation params
         '$', // for jquery plugins
         'state', // for vuex state
         'acc', // for reduce accumulators
         'e' // for e.returnvalue
       ]
+    }],
+    'import/no-unresolved': ['error', {
+      ignore: ['@nm/']
     }],
     'no-underscore-dangle': ['error', {
       allow: ['$_']

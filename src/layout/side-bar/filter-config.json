@@ -1,0 +1,57 @@
+{
+  "resources": {
+    "region": [
+      "North America",
+      "UK",
+      "DACH",
+      "Benelux",
+      "Nordics",
+      "Latin America",
+      "Australia",
+      "Asia"
+    ],
+    "type": [
+      "Analyst Report",
+      "Code Repository",
+      "Customer Stories",
+      "Data Sheet",
+      "Infographic",
+      "Reference Architecture",
+      "Support Article",
+      "Video",
+      "Webinar",
+      "White Paper",
+      "eBook"
+    ],
+    "solution": [
+      "Application Services / DevOps",
+      "Compliance",
+      "Data Services",
+      "DDoS Mitigation",
+      "eCommerce Hosting",
+      "Email Hosting",
+      "Infrastructure"
+    ],
+    "product": [
+      "Dedicated Servers",
+      "Custom Networking",
+      "Storage",
+      "Hybrid Cloud",
+      "Server Virtualization",
+      "Rackspace Private Cloud powered by VMware"
+    ],
+    "industry": [
+      "Aerospace & Defense",
+      "Agriculture",
+      "Apparel",
+      "Asspciations",
+      "Automotive",
+      "Biotech",
+      "Business Services",
+      "Construction",
+      "Consumer Goods & Services",
+      "Education",
+      "Energy & Utilites"
+    ]
+  }
+}

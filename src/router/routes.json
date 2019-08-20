@@ -10,7 +10,10 @@
                 {
                     "path": "/welcome",
                     "name": "welcome-page",
-                    "component": "require('@/pages/welcome/').default"
+                    "component": "require('@/pages/welcome/').default",
+                    "props": {
+                      "default": true
+                    }
                 },
                 {
                     "path": "/contributing",

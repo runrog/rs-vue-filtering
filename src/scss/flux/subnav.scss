@@ -57,3 +57,13 @@
     cursor: pointer;
   }
 }
+
+.flux-sideBar-layout {
+  display: flex;
+}
+
+@media (min-width: 992px) {
+  .rsFilter-sideBar {
+    width: 25%;
+  }
+}

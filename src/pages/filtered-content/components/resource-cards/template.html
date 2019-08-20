@@ -1,0 +1,60 @@
+<div>
+  <paginate
+    ref="paginatedResources"
+    name="resources"
+    :list="data"
+    :per="9">
+    <div class="resourcecenter-resourceRow row-eq-height" v-for="i in Math.ceil(paginated('resources').length / 3)" :key="i">
+      <div class="resource-wrapper resource-wrapperBox" v-for="resource in paginated('resources').slice((i - 1) * 3, i * 3)">
+         <div class="resource-video resource-video track-click">
+            <a :href="resource.alias" class="resource-innerLink">
+               <div class="resource-top">
+                  <!-- for document type -->
+                  <!-- for webinar type -->
+                  <!-- for code type -->
+                  <!-- for video type -->
+                  <div class="resource-videoThumb" :style="{ 'background-image': 'url(\'' + resource.background + '\')' }">
+                     <div class="resource-playIconWrap">
+                        <div class="resource-playIcon" aria-hidden="true">&nbsp;</div>
+                     </div>
+                  </div>
+                  <!-- for support type -->
+               </div>
+               <div class="resource-bottom">
+                  <div class="resource-titleWrap">
+                     <h5 class="resource-title">{{ resource.title }}</h5>
+                  </div>
+                  <div class="resource-rule">&nbsp;</div>
+                  <div class="resource-descWrap">
+                     <p class="resource-desc" v-html="resource.body"></p>
+                  </div>
+                  <div class="resource-linkWrap">
+                     <p class="resource-link">View Resource <i class="fa fa-caret-right resource-linkCaret"></i></p>
+                  </div>
+               </div>
+            </a>
+         </div>
+      </div>
+    </div>
+  </paginate>
+  
+  <nav class="rsFilter-pagination-nav" role="navigation" aria-labelledby="pagination-heading">
+    <paginate-links
+      for="resources"
+      class="rsFilter-pagination-list"
+      :classes="{
+        'li': 'rsFilter-pagination-item',
+        'li > a': 'rsFilter-pagination-link',
+        '.right-arrow': 'rsFilter-pagination-next',
+        '.left-arrow': 'rsFilter-pagination-back'
+      }"
+      :limit="5"
+      :hide-single-page="true"
+      :show-step-links="true"
+      :step-links="{
+        next: 'i',
+        prev: 'l'
+      }">
+    </paginate-links>
+  </nav>
+</div>
