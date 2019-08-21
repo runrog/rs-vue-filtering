@@ -27,23 +27,23 @@ The filter config `src/filter-config.json` is what the side bar builds from. Whe
   "resources": {
     "region": [
       "North America",
-      ...
+      "..."
     ],
     "type": [
       "Analyst Report",
-      ...
+      "..."
     ],
     "solution": [
       "Application Services / DevOps",
-      ...
+      "..."
     ],
     "product": [
       "Adobe Experience Manager",
-      ...
+      "..."
     ],
     "industry": [
       "Aerospace & Defense",
-      ...
+      "..."
     ]
   },
   "events": {
@@ -75,7 +75,7 @@ As you'll notice in both examples, the keys we _want_ to filter for match each o
 
 
 ## Routes
-Routes dictate what data is being fetch and from where. Below is an example of our `es` route inside the routes config:
+Routes dictate what data is being fetched and from where. Below is an example of our `es` route inside the routes config:
 
 ```javascript
 {
@@ -101,7 +101,7 @@ The path would be what you'd see in the url, but the important information to no
 
 Content needs to also match the name of the content type in the filter config above so that the side bar knows what to build from.
 ```
-content: resources
+content: 'resources'
 ```
 
 Lang is used to fetch the correct language from the correct api. If you omit this value it will default to engrish.
