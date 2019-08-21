@@ -1,0 +1,37 @@
+<div>
+  <paginate
+    ref="paginatedResources"
+    name="resources"
+    :list="data"
+    :per="9">
+    <div
+      class="resourcecenter-resourceRow row-eq-height"
+      v-for="i in Math.ceil(paginated('resources').length / 3)"
+      :key="i">
+      <div
+        class="resource-wrapper resource-wrapperBox"
+        v-for="resource in paginated('resources').slice((i - 1) * 3, i * 3)">
+        <component :is="contentTypes[resource.type]" :card="resource"></component>
+      </div>
+    </div>
+  </paginate>
+  <nav class="rsFilter-pagination-nav" role="navigation" aria-labelledby="pagination-heading">
+    <paginate-links
+      for="resources"
+      class="rsFilter-pagination-list"
+      :classes="{
+        'li': 'rsFilter-pagination-item',
+        'li > a': 'rsFilter-pagination-link',
+        '.right-arrow': 'rsFilter-pagination-next',
+        '.left-arrow': 'rsFilter-pagination-back'
+      }"
+      :limit="5"
+      :hide-single-page="true"
+      :show-step-links="true"
+      :step-links="{
+        next: 'i',
+        prev: 'l'
+      }">
+    </paginate-links>
+  </nav>
+</div>

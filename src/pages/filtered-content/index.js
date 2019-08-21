@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
-import Resources from './components/resources';
+import Resources from './resources';
 
 const template = require('./template.html');
 
