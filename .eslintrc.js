@@ -45,7 +45,8 @@ module.exports = {
         '$', // for jquery plugins
         'state', // for vuex state
         'acc', // for reduce accumulators
-        'e' // for e.returnvalue
+        'e', // for e.returnvalue
+        'val',
       ]
     }],
     'import/no-unresolved': ['error', {

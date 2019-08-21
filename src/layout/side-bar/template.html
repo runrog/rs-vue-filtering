@@ -1,26 +1,3 @@
-<!-- <div class="flux-sideBar-container">
-  <div class="flux-topBar">
-    <div class="flux-topBar-logo">
-      Vue Filter
-    </div>
-  </div>
-  <div class="flux-sideBar-layout">
-    <div class="flux-sideBar">
-      <ul class="flux-sideBar-list">
-        <sidebar-links
-          v-for="(link, index) in links"
-          :key="index"
-          :link="link"
-          :depth="20">
-       </sidebar-links>
-      </ul>
-    </div>
-    <div class="flux-sideBar-right">
-      <router-view></router-view>
-    </div>
-  </div>
-</div> -->
-
 <div class="rsFilter-section">
    <div class="rsFilter-sideBar-row">
       <div ref="sideBar" class="rsFilter-sideBar rsFilter-refreshSideBar">
@@ -38,7 +15,7 @@
             <div class="rsFilter-sideBar-content">
                <ul class="rsFilter-sideBar-acc">
                   <li v-if="filters" class="rsFilter-sideBar-accItem" v-for="(value, key) in filters">
-                    <label class="rsFilter-sideBar-accLabel">{{ key }}</label>
+                    <label class="rsFilter-sideBar-accLabel">{{ translate(key) | capitalize }}</label>
                     <div class="rsFilter-sideBar-accItemContent">
                       <div class="rsFilter-sideBar-checkbox">
                         <div class="rsFilter-formCheckItem row-eq-height" v-for="filter in value">
@@ -52,12 +29,13 @@
                             v-model="models[key][filter]"
                             :value="filter">
                            </span>
-                           <label :for="filter" :title="filter">{{ filter }}</label>
+                           <label :for="filter" :title="filter">{{ translate(filter) }}</label>
                         </div>
                       </div>
                     </div>
                   </li>
                </ul>
+               <!-- TODO decide if we want this? -->
                <!-- <div class="rsFilter-sideBar-btnWrap">
                   <input class="rsFilter-sideBar-submit form-submit" type="submit" id="edit-submit-resource-library" name="" value="Show Results">
                </div> -->
@@ -65,6 +43,6 @@
          </form>
       </div>
       <!-- filter content -->
-      <router-view :models="models"></router-view>
+      <router-view :content="content" :models="models" :data-error="dataError"></router-view>
    </div>
 </div>

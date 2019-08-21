@@ -1,7 +1,9 @@
+/* eslint consistent-return: 0 */
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
-import filterConfig from './filter-config.json';
+import axios from 'axios';
+import filterConfig from '@/filter-config.json';
 
 const template = require('./template.html');
 
@@ -9,7 +11,7 @@ export default Vue.component('side-bar', {
   template,
   name: 'side-bar',
   computed: {
-    ...mapGetters(['sidebarLinks', 'dataLoading', 'filterData']),
+    ...mapGetters(['sidebarLinks', 'dataLoading', 'filterData', 'noneChecked']),
   },
   created() {
     this.fetchFilterData();
@@ -19,13 +21,14 @@ export default Vue.component('side-bar', {
   },
   data() {
     return {
-      endpointDomain: 'http://mte-4798-rest-endpoints.www8.dev.website.rackspace.com',
+      endpointDomain: 'http://optimize-favicon.www8.dev.website.rackspace.com',
       filters: null,
       queries: {},
       lang: null,
       content: '',
       format: '',
       models: {},
+      dataError: false,
     };
   },
   methods: {
@@ -56,14 +59,13 @@ export default Vue.component('side-bar', {
         });
       });
     },
-    updateContent(e, filter) {
+    updateContent(e) {
       if (!e.target.checked) {
         const checked = [];
-        _.forOwn(this.models, (val, key) => {
+        _.forOwn(this.models, (val) => {
           // if at least one is checked we can kill the loop
-          _.forOwn(val, (item, itemKey) => {
+          _.forOwn(val, (item) => {
             if (item) {
-              console.log(`${itemKey} is checked`);
               checked.push(item);
               return false;
             }
@@ -86,7 +88,17 @@ export default Vue.component('side-bar', {
       }
     },
     clearAll() {
-      // console.log('clear all');
+      if (!this.noneChecked) {
+        _.forOwn(this.models, (val) => {
+          _.forOwn(val, (item, key) => {
+            val[key] = false;
+          });
+        });
+        this.$store.dispatch('setGlobalValue', {
+          item: 'noneChecked',
+          value: true,
+        });
+      }
     },
     async fetchFilterData() {
       const $route = this.$router.currentRoute;
@@ -101,15 +113,16 @@ export default Vue.component('side-bar', {
         value: true,
       });
       try {
-        const data = await this.$http.get(
-          `${this.endpointDomain}/${this.lang ? `${this.lang}/` : ''}api/${this.content}?_format=${this.format}`,
-        );
+        const request = await axios({
+          method: 'get',
+          url: `${this.endpointDomain}/${this.lang ? `${this.lang}/` : ''}api/${this.content}?_format=${this.format}`,
+        });
         this.$store.dispatch('setGlobalValue', {
           item: 'filterData',
-          value: data.body,
+          value: request.data,
         });
       } catch (e) {
-        this.error = `There was an error fetching data: ${JSON.stringify(e)}`;
+        this.dataError = `There was an error fetching data: ${JSON.stringify(e)}`;
       } finally {
         this.$store.dispatch('setGlobalValue', {
           item: 'dataLoading',

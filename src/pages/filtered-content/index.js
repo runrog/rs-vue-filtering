@@ -1,22 +1,21 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
-import ResourceCards from './components/resource-cards';
+import Resources from './components/resources';
 
 const template = require('./template.html');
-
-// TODO set this up with mock data
-// test components
-// test vuex
 
 export default Vue.component('filtered-content', {
   template,
   name: 'filtered-content',
   components: {
-    ResourceCards,
+    Resources,
   },
   computed: {
     ...mapGetters(['filterData', 'dataLoading', 'noneChecked']),
+    types() {
+      return { resources: Resources };
+    },
     filteredResources() {
       let all = this.filterData;
       // if at least one filter is checked, we need to do the filtering
@@ -30,25 +29,27 @@ export default Vue.component('filtered-content', {
         _.forEach(all, (card) => {
           // if card matches at least 1 checked category, add it
           _.forEach(checked, (check) => {
-            const text = new RegExp(_.startCase(card[check.filter]));
-            if (check.category.match(text, 'gi')) {
+            const value = _.unescape(card[check.filter].replace('_', ' '));
+            // console.log(`value for ${check.filter}: `, value);
+            const category = new RegExp(check.category, 'gi');
+            // TODO if more than 1 are checked, need to only show cards that
+            // match exactly those, right now it's showing and or
+            // perhaps not though because most will not have both
+            if (value.match(category, 'gi')) {
+              // console.log(`card matched for ${check.filter}: ${value}`);
               matches.push(card);
             }
+            // TODO if we want a search bar we can include the card if it matches
+            // user's search input
+            // const search = new RegExp(this.searchInput, 'gi');
           });
         });
         all = matches;
       }
-      // const search = new RegExp(this.searchInput, 'gi');
-      // all = _.filter(
-      //   all, r => r.type.match(search) ||
-      //             r.title.match(search) ||
-      //             r.product.match(search),
-      // );
-      // console.log('all: ', all.length);
       return all;
     },
   },
-  props: ['models'],
+  props: ['models', 'data-error', 'content'],
   data() {
     return {
       loading: false,

@@ -56,11 +56,11 @@ export default new Router({
       path: '*',
       redirect: '/',
     },
-    // {
-    //   path: '/full-page/:id',
-    //   name: 'full',
-    //   component: require('@/layout/full-page/').default,
-    //   children: [],
-    // },
+    {
+      path: '/full-page/:id',
+      name: 'full',
+      component: require('@/layout/full-page/').default, // eslint-disable-line
+      children: [],
+    },
   ],
 });

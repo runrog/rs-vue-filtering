@@ -2,9 +2,9 @@ import Vue from 'vue';
 
 const template = require('./template.html');
 
-export default Vue.component('resource-cards', {
+export default Vue.component('resources', {
   template,
-  name: 'resource-cards',
+  name: 'resources',
   props: ['data'],
   data() {
     return {

@@ -1,36 +1,7 @@
-<!-- <div>
-  <div class="flux-row">
-    <div class="flux-filter-box">
-      <div class="form-checkboxes flux-demo-col" v-for="(type, index) in types">
-        <div class="form-item">
-          <input type="checkbox" :id="type.name" v-model="type.checked" class="form-checkbox">
-          <label class="option" :for="type.name">{{ lodash.startCase(type.name) }}</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="flux-row">
-    <input type="text" v-model="searchInput" class="flux-searchInput">
-  </div>
-  <img v-if="loading" class="rsPage-loader" src="/static/circle-loader.svg" alt="rackspace loader" />
-  <div class="row-f" v-for="i in Math.ceil(filteredResources.length / 3)" :key="i" v-if="!error">
-    <div class="rsResource-card" v-for="resource in filteredResources.slice((i - 1) * 3, i * 3)">
-      <div class="rsResource-card-inner">
-        <p>Title: {{ resource.title }}</p>
-        <p>Product: {{ resource.product }}</p>
-        <p>Type: {{ resource.type }}</p>
-      </div>
-    </div>
-  </div>
-  <div v-if="error">
-    {{ error }}
-  </div>
-</div> -->
-
-
 <div class="rsFilter-results-content">
-  <img v-if="dataLoading && !error" class="rsPage-loader" src="/static/circle-loader.svg" alt="rackspace loader" />
-    <!-- TODO make a new dynamic component here component -->
-  <resource-cards v-if="!dataLoading && !error" :data="filteredResources"></resource-cards>
-  <!-- TODO check for errors from parent = render here -->
+  <img v-if="dataLoading && !dataError" class="rsPage-loader" src="/static/circle-loader.svg" alt="rackspace loader" />
+  <component :is="types[content]" v-if="!dataLoading && !dataError" :data="filteredResources"></component>
+  <div class="rsFilter-error" v-if="dataError">
+    {{ dataError }}
+  </div>
 </div>

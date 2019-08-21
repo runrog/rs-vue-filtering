@@ -1,9 +1,0 @@
-{
-  "links": [
-    {
-      "text": "Welcome",
-      "route": "/welcome",
-      "children": []
-    }
-  ]
-}

@@ -1,15 +1,14 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import VueResource from 'vue-resource';
 import VueLogger from 'vuejs-logger';
 import _ from 'lodash';
-import VueHighlightJS from 'vue-highlightjs';
-import VuePaginate from 'vue-paginate'
-import '@nm/zoolander/dist/css/derek.css';
-import '@nm/zoolander/dist/js/global-components/filter-bar/filter-accordion';
+import VuePaginate from 'vue-paginate';
+import Strings from '@/filters/strings';
+import { translate } from '@/mixins/translate';
+import '@nm/zoolander/dist/css/derek.css'; // eslint-disable-line
+import '@nm/zoolander/dist/js/global-components/filter-bar/filter-accordion'; // eslint-disable-line
 import './scss/main.scss';
-import './theme-reload';
 import App from './app-view';
 import router from './router';
 import store from './store';
@@ -23,18 +22,19 @@ Vue.use(VueLogger, {
 });
 
 Vue.use(VuePaginate);
-Vue.use(VueResource);
-Vue.use(VueHighlightJS);
+Vue.mixin(translate);
+Vue.filter('capitalize', Strings.capitalize);
+Vue.filter('unescape', Strings.unescape);
 
 // lend me a hand lodash! to all components
 Vue.prototype.$_ = _; // eslint-disable-line
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
-// Vue.config.performance = true;
+Vue.config.performance = true;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#picazzo',
+  el: '#rsFilter-center',
   router,
   store,
   components: { App },
