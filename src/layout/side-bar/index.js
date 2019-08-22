@@ -21,7 +21,7 @@ export default Vue.component('side-bar', {
   },
   data() {
     return {
-      endpointDomain: 'http://optimize-favicon.www8.dev.website.rackspace.com',
+      endpointDomain: 'https://optimize-favicon.www8.dev.website.rackspace.com',
       filters: null,
       queries: {},
       lang: null,
