@@ -16,6 +16,7 @@ export default Vue.component('resources', {
       return {
         analyst_report: PDF,
         data_sheet: PDF,
+        case_study: PDF,
         infographic: PDF,
         reference_architecture: PDF,
         white_paper: PDF,
