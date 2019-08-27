@@ -9,4 +9,14 @@ export default {
     if (!value) return '';
     return _.unescape(value);
   },
+  translate(string) {
+    return Drupal.t(string);
+  },
+  truncate(value, length, clamp) {
+    const clampValue = clamp || '...';
+    const node = document.createElement('div');
+    node.innerHTML = value;
+    const content = node.textContent;
+    return content.length > length ? content.slice(0, length) + clampValue : content;
+  },
 };

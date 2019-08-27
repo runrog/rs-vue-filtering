@@ -11,7 +11,7 @@ export default Vue.component('side-bar', {
   template,
   name: 'side-bar',
   computed: {
-    ...mapGetters(['sidebarLinks', 'dataLoading', 'filterData', 'noneChecked']),
+    ...mapGetters(['dataLoading', 'filterData', 'noneChecked']),
   },
   created() {
     this.fetchFilterData();
@@ -34,6 +34,7 @@ export default Vue.component('side-bar', {
   methods: {
     prepareLocalModels() {
       let updateNoneChecked = false;
+      this.filters = _.transform(this.filters, (r, v, k) => r[k] = v.list); // eslint-disable-line
       _.forOwn(this.filters, (val, key) => {
         this.$set(this.models, key, {});
         const modelKey = this.models[key];

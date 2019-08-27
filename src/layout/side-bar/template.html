@@ -15,7 +15,7 @@
             <div class="rsFilter-sideBar-content">
                <ul class="rsFilter-sideBar-acc">
                   <li v-if="filters" class="rsFilter-sideBar-accItem" v-for="(value, key) in filters">
-                    <label class="rsFilter-sideBar-accLabel">{{ translate(key) | capitalize }}</label>
+                    <label class="rsFilter-sideBar-accLabel">{{ key | capitalize | translate }}</label>
                     <div class="rsFilter-sideBar-accItemContent">
                       <div class="rsFilter-sideBar-checkbox">
                         <div class="rsFilter-formCheckItem row-eq-height" v-for="filter in value">
@@ -29,7 +29,7 @@
                             v-model="models[key][filter]"
                             :value="filter">
                            </span>
-                           <label :for="filter" :title="filter">{{ translate(filter) }}</label>
+                           <label :for="filter" :title="filter">{{ filter | translate }}</label>
                         </div>
                       </div>
                     </div>

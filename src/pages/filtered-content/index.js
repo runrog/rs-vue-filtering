@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
+import filterConfig from '@/filter-config.json';
 import Resources from './resources';
 
 const template = require('./template.html');
@@ -22,26 +23,43 @@ export default Vue.component('filtered-content', {
       // if not we can return all of the data
       if (!this.noneChecked) {
         const checked = [];
+        const typesChecked = [];
         _.filter(this.models, (v, k) => _.forOwn(v, (vl, ky) => {
-          if (vl) { checked.push({ filter: k, category: ky }); }
+          if (vl) {
+            checked.push({ filter: k, category: ky });
+            if (!typesChecked.includes(k)) {
+              typesChecked.push(k);
+            }
+          }
         }));
         const matches = [];
         _.forEach(all, (card) => {
-          // if card matches at least 1 checked category, add it
-          _.forEach(checked, (check) => {
-            const value = _.unescape(card[check.filter].replace('_', ' '));
-            // console.log(`value for ${check.filter}: `, value);
+          _.forEach(checked, (check, i) => { // eslint-disable-line
+            const key = check.filter;
+            const value = _.unescape(card[key].replace('_', ' '));
             const category = new RegExp(check.category, 'gi');
-            // TODO if more than 1 are checked, need to only show cards that
-            // match exactly those, right now it's showing and or
-            // perhaps not though because most will not have both
-            if (value.match(category, 'gi')) {
-              // console.log(`card matched for ${check.filter}: ${value}`);
+            if (typesChecked.length > 1) {
+              const allowMultiple = filterConfig[this.content][key].allowMultiple;
+              // if something does not match then move to next card as this
+              // should not be shown in the filter
+              if (!value.match(category, 'gi') && allowMultiple) {
+                return false;
+              }
+              // if we have a filter that only accepts 1 value (like type),
+              // it's possible a user checked multiple types to filter, so
+              // we just need to make sure the card has one of those
+              if (!allowMultiple && !this.singleItemExists({ checked, key, value })) {
+                return false;
+              }
+              // last filter was reached, if all checks reached here we can add card
+              if (i === checked.length - 1) {
+                matches.push(card);
+              }
+            } else if (value.match(category, 'gi')) {
+              // if only one filter type is checked, we can add the card
+              // if that value matches
               matches.push(card);
             }
-            // TODO if we want a search bar we can include the card if it matches
-            // user's search input
-            // const search = new RegExp(this.searchInput, 'gi');
           });
         });
         all = matches;
@@ -55,10 +73,12 @@ export default Vue.component('filtered-content', {
       loading: false,
       error: false,
       searchInput: '',
-      lodash: _,
     };
   },
   methods: {
+    singleItemExists(p) {
+      return _.find(p.checked, { filter: p.key, category: p.value.replace(/\b\w/g, l => l.toUpperCase()) });
+    },
     debounceSearch(e) {
       this.searchInput = e.target.value;
     },
