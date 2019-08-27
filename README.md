@@ -25,26 +25,41 @@ The filter config `src/filter-config.json` is what the side bar builds from. Whe
 
 {
   "resources": {
-    "region": [
-      "North America",
-      "..."
-    ],
-    "type": [
-      "Analyst Report",
-      "..."
-    ],
-    "solution": [
-      "Application Services / DevOps",
-      "..."
-    ],
-    "product": [
-      "Adobe Experience Manager",
-      "..."
-    ],
-    "industry": [
-      "Aerospace & Defense",
-      "..."
-    ]
+    "region": {
+      "allowMultiple": true,
+      "list": [
+        "North America",
+        "..."
+      ]
+    },
+    "type": {
+      "allowMultiple": false,
+      "list": [
+        "Analyst Report",
+        "..."        
+      ]
+    },
+    "solution": {
+      "allowMultiple": true,
+      "list": [
+        "Application Services / DevOps",
+        "..."
+      ]
+    },
+    "product": {
+      "allowMultiple": true,
+      "list": [
+        "Adobe Experience Manager",
+        "..."
+      ]
+    },
+    "industry": {
+      "allowMultiple": true,
+      "list": [
+        "Aerospace & Defense",
+        "..."        
+      ]
+    }
   },
   "events": {
     "something": [],
@@ -72,6 +87,8 @@ The keys you make inside the content type in the example will depend on the data
 ```
 
 As you'll notice in both examples, the keys we _want_ to filter for match each other. They aren't limited, if you wanted to filter for the title, you can also add that to the config.
+
+The ```allowMultiple``` setting in the config is in reference to the card data. For example, with resources, the "type" data only gives 1 value where are as the "product" value can give multiple.
 
 
 ## Routes
