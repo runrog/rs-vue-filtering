@@ -35,4 +35,9 @@ export default Vue.component('resources', {
       paginate: ['resources'],
     };
   },
+  methods: {
+    list(i) {
+      return this.paginated('resources').slice((i - 1) * 3, i * 3);
+    },
+  },
 });

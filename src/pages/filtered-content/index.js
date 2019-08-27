@@ -48,7 +48,7 @@ export default Vue.component('filtered-content', {
               // if we have a filter that only accepts 1 value (like type),
               // it's possible a user checked multiple types to filter, so
               // we just need to make sure the card has one of those
-              if (!allowMultiple && !this.singleItemExists({ checked, key, value })) {
+              if (!allowMultiple && !this.singleItemExists({ checked, value, key })) {
                 return false;
               }
               // last filter was reached, if all checks reached here we can add card
@@ -77,7 +77,7 @@ export default Vue.component('filtered-content', {
   },
   methods: {
     singleItemExists(p) {
-      return _.find(p.checked, { filter: p.key, category: p.value.replace(/\b\w/g, l => l.toUpperCase()) });
+      return _.find(p.checked, c => c.filter === p.key && c.category.match(new RegExp(p.value, 'gi')));
     },
     debounceSearch(e) {
       this.searchInput = e.target.value;

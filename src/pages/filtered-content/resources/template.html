@@ -1,6 +1,6 @@
 <div>
   <paginate
-    ref="paginatedResources"
+    tag="div"
     name="resources"
     :list="data"
     :per="9">
@@ -10,9 +10,12 @@
       :key="i">
       <div
         class="resource-wrapper resource-wrapperBox"
-        v-for="resource in paginated('resources').slice((i - 1) * 3, i * 3)">
+        v-for="resource in list(i)">
         <component :is="contentTypes[resource.type]" :card="resource"></component>
+        
       </div>
+      <div v-if="list(i).length === 1" class="resource-wrapper">&nbsp;</div>
+      <div v-if="list(i).length === 1 || list(i).length === 2" class="resource-wrapper">&nbsp;</div>
     </div>
   </paginate>
   <nav class="rsFilter-pagination-nav" role="navigation" aria-labelledby="pagination-heading">
