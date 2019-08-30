@@ -8,7 +8,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/resources',
       name: 'sidebar',
       component: require('@/layout/side-bar/').default, // eslint-disable-line
       children: [
@@ -51,10 +50,6 @@ export default new Router({
           },
         },
       ],
-    },
-    {
-      path: '*',
-      redirect: '/',
     },
     {
       path: '/full-page/:id',
